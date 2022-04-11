@@ -19,6 +19,7 @@
      "os": "^0.1.2"
    },
    "devDependencies": {
-     "semver": "^7.3.6"
+     "semver": "^7.3.6",
+     "curl": "^7.68.0"
    }
  }
