@@ -9,7 +9,6 @@ RUN apt-get update \
     
 RUN apt-get install -y jq
 RUN npm install
-RUN apt-get install node-semver
     
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
