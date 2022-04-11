@@ -9,7 +9,7 @@ initial_version=${INITIAL_VERSION:-1.0.0}
 
 echo "*** CONFIGURATION ***"
 echo -e "\tDEFAULT_BUMP: ${default_bump}"
-echo -e "\CUSTOM_VERSION: ${custom_version}"
+echo -e "\tCUSTOM_VERSION: ${custom_version}"
 echo -e "\tINITIAL_VERSION: ${initial_version}"
 
 
@@ -18,7 +18,7 @@ git fetch --tags
 
 tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
 tagList="$(git for-each-ref --sort=-v:refname | grep -E "$tagFmt")"
-echo -e "tagList"
+echo -e "$tagList"
 
 
 #tag="$(semver "$tagList" | tail -n 1)"
