@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y \
     curl \
     jq \
     npm install \
-    npm install semver \
+    npm install semver
 
 ENTRYPOINT ["/entrypoint.sh"]
