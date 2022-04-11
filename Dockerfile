@@ -11,5 +11,6 @@ RUN apt-get install -y jq
     
 RUN npm install \
     npm install semver
-
+    
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
