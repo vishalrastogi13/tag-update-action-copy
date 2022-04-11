@@ -11,6 +11,6 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
-        uses: sharechat/tag-update-action@master
+        uses: sharechat/tag-update-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
