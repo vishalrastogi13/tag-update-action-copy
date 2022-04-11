@@ -1,3 +1,3 @@
 # tag-update-action
 
-Test - default
+Test - feature

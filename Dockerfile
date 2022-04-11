@@ -8,9 +8,8 @@ RUN apt-get update \
     && apt-get install -y curl
     
 RUN apt-get install -y jq
-    
-RUN npm install \
-    npm install semver
+RUN apt-get install node-semver
+RUN npm install
     
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
