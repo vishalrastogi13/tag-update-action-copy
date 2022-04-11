@@ -4,7 +4,7 @@ set -o pipefail
 
 # config
 default_bump="patch"
-custom_version=cat ${CUSTOM_VERSION} | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs
+custom_version=cat tagSpec.yml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs
 initial_version=${INITIAL_VERSION:-1.0.0}
 
 echo "*** CONFIGURATION ***"
