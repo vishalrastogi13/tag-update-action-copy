@@ -1,25 +1,15 @@
 {
-   "name": "tag-update-action",
-   "version": "1.0.0",
-   "description": "",
-   "main": "-",
-   "repository": {
-     "type": "git",
-     "url": "git+https://github.com/ShareChat/tag-update-action.git"
-   },
-   "author": "sumitkumar",
-   "homepage": "https://github.com/ShareChat/tag-update-action#readme",
-   "dependencies": {
-     "@actions/cache": "^2.0.0",
-     "@actions/core": "^1.6.0",
-     "@actions/exec": "^1.1.1",
-     "@actions/github": "^5.0.0",
-     "@actions/io": "^1.1.2",
-     "npm-install": "^1.8.4",
-     "os": "^0.1.2"
-   },
-   "devDependencies": {
-     "semver": "^7.3.6",
-     "curl": "^7.68.0"
-   }
- }
+  "name": "tag-update-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "-",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShareChat/tag-update-action.git"
+  },
+  "author": "sumitkumar",
+  "homepage": "https://github.com/ShareChat/tag-update-action#readme",
+  "devDependencies": {
+    "semver": "^7.3.6"
+  }
+}
