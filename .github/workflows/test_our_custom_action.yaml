@@ -13,7 +13,7 @@ jobs:
       - name: Read pubspec.yml to get Tag version type
         id: custom-tag
         run: |
-          TAG=`cat pubspec.yml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
+          TAG=`cat tagSpec.yml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
           echo "::set-output name=tag::$(echo $TAG)"
         shell: bash
       - name: Bump version and push tag
