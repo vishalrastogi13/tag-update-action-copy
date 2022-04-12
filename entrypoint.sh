@@ -10,11 +10,11 @@ echo "*** CONFIGURATION ***"
 echo -e "\tCUSTOM_VERSION: ${custom_tag}"
 
 #get highest tag number, and add 1.0.0 if doesn't exist
-echo `git describe --abbrev=0 --tags 2>/dev/null`
-echo  git describe --tags $(git rev-list --tags --max-count=1)
+echo "Latest tag: $(git describe --abbrev=0 --tags 2>/dev/null)"
+echo "rev list tags: $(git describe --tags $(git rev-list --tags --max-count=1))"
 
 CURRENT_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
-
+echo "current version ${CURRENT_VERSION}"
 if [[ $CURRENT_VERSION == '' ]]
 then
     echo "No Tag as of now, creating a new Tag ${initial_version}"
