@@ -3,11 +3,11 @@
 set -o pipefail
 
 # config
-CUSTOM_VERSION=${custom_tag}
-INITIAL_VERSION='v1.0.0'
+custom_tag=${custom_tag}
+initial_version='v1.0.0'
 
 echo "*** CONFIGURATION ***"
-echo -e "\tCUSTOM_VERSION: ${CUSTOM_VERSION}"
+echo -e "\tCUSTOM_VERSION: ${custom_tag}"
 
 
 # fetch tags
@@ -19,9 +19,9 @@ CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 if [[ $CURRENT_VERSION == '' ]]
 then
     echo "No Tag as of now, creating a new Tag ${initial_version}"
-    NEW_TAG=$INITIAL_VERSION
+    NEW_TAG=$initial_version
 else
-    echo "Current Major Version is ${CURRENT_VERSION} & Custom specified version is ${CUSTOM_VERSION}"
+    echo "Current Major Version is ${CURRENT_VERSION} & Custom specified version is ${custom_tag}"
     CURRENT_VERSION="${CURRENT_VERSION#?}"
     CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
 
@@ -30,7 +30,7 @@ else
     CURRENT_MINOR=${CURRENT_VERSION_PARTS[1]}
     CURRENT_PATCH=${CURRENT_VERSION_PARTS[2]}
 
-    CUSTOM_VERSION_NUMBER="${CUSTOM_VERSION#?}"
+    CUSTOM_VERSION_NUMBER="${custom_tag#?}"
     CUSTOM_VERSION_PARTS=(${CUSTOM_VERSION_NUMBER//./ })
 
     #get number parts
@@ -60,7 +60,7 @@ else
 fi
 
 # get current commit hash for tag
-tag_commit=$(git rev-list -n 1 $tag)
+tag_commit=$(git rev-list -n 1 $NEW_TAG)
 
 # get current commit hash
 commit=$(git rev-parse HEAD)
