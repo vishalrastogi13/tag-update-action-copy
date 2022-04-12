@@ -1,3 +1,3 @@
 # tag-update-action
 
-Test - feature
+Test - version update patch only
