@@ -4,11 +4,6 @@ author: 'sumitkumar@sharechat.co'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-inputs:
-  custom_tag:
-    description: 'Custom tag exist in repo'
-    required: true
-
 outputs:
   new_tag:
     description: 'Generated tag'
