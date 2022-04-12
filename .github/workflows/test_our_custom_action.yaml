@@ -24,6 +24,6 @@ jobs:
         id: tag_version
         uses: sharechat/tag-update-action@master
         with:
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.custom-tag.outputs.tag }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            custom_tag: ${{ steps.custom-tag.outputs.tag }}
