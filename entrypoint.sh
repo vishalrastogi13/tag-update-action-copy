@@ -3,7 +3,7 @@
 set -o pipefail
 
 # config
-CUSTOM_VERSION=${CUSTOM_TAG}
+CUSTOM_VERSION=${custom_tag}
 INITIAL_VERSION='v1.0.0'
 
 echo "*** CONFIGURATION ***"
