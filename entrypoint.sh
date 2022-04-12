@@ -3,46 +3,78 @@
 set -o pipefail
 
 # config
-default_bump="patch"
-custom_version={cat "tagSpec.yml" | grep -o 'version:[^:]*' | cut -f2 -d":"}
-initial_version=${INITIAL_VERSION:-1.0.0}
+CUSTOM_VERSION={cat "tagSpec.yml" | grep -o 'version:[^:]*' | cut -f2 -d":"}
+INITIAL_VERSION='v1.0.0'
 
 echo "*** CONFIGURATION ***"
-echo -e "\tDEFAULT_BUMP: ${default_bump}"
-echo -e "\tCUSTOM_VERSION: ${custom_version}"
-echo -e "\tINITIAL_VERSION: ${initial_version}"
+echo -e "\tCUSTOM_VERSION: ${CUSTOM_VERSION}"
 
 
 # fetch tags
 git fetch --tags
 
-tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
-echo "TagFmt: ${tagFmt}"
-tagList="$(git for-each-ref --sort=-v:refname | grep -E "$tagFmt")"
-echo "Tags: $tagList"
+#get highest tag number, and add 1.0.0 if doesn't exist
+CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
-if [ -z "$tagList" ]
+if [[ $CURRENT_VERSION == '' ]]
 then
-  echo "Tags: $tagList"
+  echo "No Tag as of now, creating a new Tag ${initial_version}"
+  NEW_TAG=$INITIAL_VERSION
 else
-  echo "No Tags"
+    echo "Current Major Version is ${CURRENT_VERSION} & Custom specified version is ${CUSTOM_VERSION}"
+    CURRENT_VERSION="${CURRENT_VERSION#?}"
+    CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
+
+    #get number parts
+    CURRENT_MAJOR=${CURRENT_VERSION_PARTS[0]}
+    CURRENT_MINOR=${CURRENT_VERSION_PARTS[1]}
+    CURRENT_PATCH=${CURRENT_VERSION_PARTS[2]}
+
+    CUSTOM_VERSION_NUMBER="${CUSTOM_VERSION#?}"
+    CUSTOM_VERSION_PARTS=(${CUSTOM_VERSION_NUMBER//./ })
+
+    #get number parts
+    CUSTOM_MAJOR=${CUSTOM_VERSION_PARTS[0]}
+    CUSTOM_MINOR=${CUSTOM_VERSION_PARTS[1]}
+    CUSTOM_PATCH=${CUSTOM_VERSION_PARTS[2]}
+
+    if  [ $CUSTOM_MAJOR -gt $CURRENT_MAJOR ];
+    then
+        NEW_TAG=$CUSTOM_VERSION
+    else
+        if  [ $CUSTOM_MINOR -gt $CURRENT_MINOR ];
+        then
+            NEW_TAG=$CUSTOM_VERSION
+        else
+            if [ $CUSTOM_PATCH -gt $CURRENT_PATCH ];
+            then
+                NEW_TAG=$CUSTOM_VERSION
+            else
+                CURRENT_PATCH=$((CURRENT_PATCH+1))
+                NEW_TAG="$CURRENT_MAJOR.$CURRENT_MINOR.$CURRENT_PATCH"
+                NEW_TAG="v$tag"
+            fi
+        fi
+    fi
+    echo "Updating $CURRENT_VERSION to $NEW_TAG"
 fi
 
-#tag="$(semver "$tagList" | tail -n 1)"
-#
-## if there are none, start tags at INITIAL_VERSION which defaults to 1.0.0
-#if [ -z "$tag" ]
-#then
-#    log=$(git log --pretty='%B')
-#    tag="$initial_version"
-#    if [ -z "$pre_tag" ] && $pre_release
-#    then
-#      pre_tag="$initial_version"
-#    fi
-#else
-#    log=$(git log $tag..HEAD --pretty='%B')
-#fi
-#
+#get current hash and see if it already has a tag
+GIT_COMMIT=`git rev-parse HEAD`
+NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
+
+#only tag if no tag already
+#to publish, need to be logged in to npm, and with clean working directory: `npm login; git stash`
+if [ -z "$NEEDS_TAG" ]; then
+  npm version $NEW_TAG
+  npm publish --access public
+  echo "Tagged with $NEW_TAG"
+  git push --tags
+  git push
+else
+  echo "Already a tag on this commit"
+fi
+
 ## get current commit hash for tag
 #tag_commit=$(git rev-list -n 1 $tag)
 #
