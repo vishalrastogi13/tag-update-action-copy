@@ -18,8 +18,14 @@ git fetch --tags
 
 tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
 tagList="$(git for-each-ref --sort=-v:refname | grep -E "$tagFmt")"
-echo -e "Tags: $tagList"
+echo "Tags: $tagList"
 
+if [ -z "$tagList" ]
+then
+  echo "Tags: $tagList"
+else
+  echo "No Tags"
+fi
 
 #tag="$(semver "$tagList" | tail -n 1)"
 #
