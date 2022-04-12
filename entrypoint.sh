@@ -11,8 +11,9 @@ echo -e "\tCUSTOM_VERSION: ${custom_tag}"
 
 #get highest tag number, and add 1.0.0 if doesn't exist
 echo `git describe --abbrev=0 --tags 2>/dev/null`
+echo  git describe --tags $(git rev-list --tags --max-count=1)
 
-CURRENT_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null)
+CURRENT_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 if [[ $CURRENT_VERSION == '' ]]
 then
