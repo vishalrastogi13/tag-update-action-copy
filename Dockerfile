@@ -5,7 +5,8 @@ MAINTAINER sumitkumar@sharechat.co
 COPY entrypoint.sh /entrypoint.sh
 
 RUN apt-get update \
-    && apt-get install -y curl
+    && apt-get install -y curl \
+    jq
     
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
