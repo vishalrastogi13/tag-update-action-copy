@@ -9,7 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+        with:
+          ref: ${{ github.ref }}
       - name: Read pubspec.yml to get Tag version type
         id: custom-tag
         run: |
@@ -21,5 +24,6 @@ jobs:
         id: tag_version
         uses: sharechat/tag-update-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.custom-tag.outputs.tag }}

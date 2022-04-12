@@ -9,10 +9,6 @@ initial_version='v1.0.0'
 echo "*** CONFIGURATION ***"
 echo -e "\tCUSTOM_VERSION: ${custom_tag}"
 
-
-# fetch tags
-git fetch --tags
-
 #get highest tag number, and add 1.0.0 if doesn't exist
 CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
