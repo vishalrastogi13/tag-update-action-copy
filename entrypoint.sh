@@ -17,6 +17,7 @@ echo -e "\tINITIAL_VERSION: ${initial_version}"
 git fetch --tags
 
 tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
+echo "TagFmt: ${tagFmt}"
 tagList="$(git for-each-ref --sort=-v:refname | grep -E "$tagFmt")"
 echo "Tags: $tagList"
 
