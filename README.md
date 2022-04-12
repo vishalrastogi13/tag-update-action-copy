@@ -1,3 +1,3 @@
 # tag-update-action
 
-Test - version update patch only
+This serves actions to be used by dynamic config clients repo for tag version update
