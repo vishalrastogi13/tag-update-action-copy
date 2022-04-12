@@ -44,11 +44,11 @@ else
     then
         NEW_TAG=$CUSTOM_VERSION
     else
-        if  [ $CUSTOM_MINOR -gt $CURRENT_MINOR ];
+        if  [ $CUSTOM_MAJOR == $CURRENT_MAJOR ] && [ $CUSTOM_MINOR -gt $CURRENT_MINOR ];
         then
             NEW_TAG=$CUSTOM_VERSION
         else
-            if [ $CUSTOM_PATCH -gt $CURRENT_PATCH ];
+            if [ $CUSTOM_MAJOR == $CURRENT_MAJOR ] && [ $CUSTOM_MINOR == $CURRENT_MINOR ] && [ $CUSTOM_PATCH -gt $CURRENT_PATCH ];
             then
                 NEW_TAG=$CUSTOM_VERSION
             else
