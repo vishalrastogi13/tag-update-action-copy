@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@master
         with:
           fetch-depth: '0'
+      - uses: actions/checkout@v1
       - name: Bump version and push tag
         uses: sharechat/tag-update-action@master
         env:
