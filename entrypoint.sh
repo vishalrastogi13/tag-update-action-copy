@@ -3,7 +3,7 @@
 set -o pipefail
 
 # config
-custom_tag=${custom_tag}
+CUSTOM_VERSION=${custom_tag}
 initial_version='v1.0.0'
 
 echo "*** CONFIGURATION ***"
@@ -23,7 +23,7 @@ then
     echo "No Tag as of now, creating a new Tag ${initial_version}"
     NEW_TAG=$initial_version
 else
-    echo "Current Major Version is ${CURRENT_VERSION} & Custom specified version is ${custom_tag}"
+    echo "Current Major Version is ${CURRENT_VERSION} & Custom specified version is ${CUSTOM_VERSION}"
     CURRENT_VERSION="${CURRENT_VERSION#?}"
     CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
 
@@ -32,7 +32,7 @@ else
     CURRENT_MINOR=${CURRENT_VERSION_PARTS[1]}
     CURRENT_PATCH=${CURRENT_VERSION_PARTS[2]}
 
-    CUSTOM_VERSION_NUMBER="${custom_tag#?}"
+    CUSTOM_VERSION_NUMBER="${CUSTOM_VERSION#?}"
     CUSTOM_VERSION_PARTS=(${CUSTOM_VERSION_NUMBER//./ })
 
     #get number parts
