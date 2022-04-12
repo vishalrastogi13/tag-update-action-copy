@@ -20,15 +20,9 @@ jobs:
           echo "::set-output name=tag::$(echo $TAG)"
           echo "$TAG"
         shell: bash
-      - name: Latest tag in this repo
-        id: latest_tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "::set-output name=tag::$(echo $TAG)"
       - name: Bump version and push tag
         id: tag_version
         uses: sharechat/tag-update-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.custom-tag.outputs.tag }}
-          latest_tag: ${{ steps.latest_tag.outputs.tag }}

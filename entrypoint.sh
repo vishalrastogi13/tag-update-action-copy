@@ -10,7 +10,9 @@ echo "*** CONFIGURATION ***"
 echo -e "\tCUSTOM_VERSION: ${custom_tag}"
 
 #get highest tag number, and add 1.0.0 if doesn't exist
-CURRENT_VERSION=${latest_tag}
+echo "Latest tag: $(git describe --abbrev=0 --tags)"
+echo "rev list tags: $(git describe --tags $(git rev-list --tags --max-count=1))"
+CURRENT_VERSION=$(git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1)
 echo "current version ${CURRENT_VERSION}"
 
 if [[ $CURRENT_VERSION == '' ]]
