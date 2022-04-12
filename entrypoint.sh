@@ -3,7 +3,7 @@
 set -o pipefail
 
 # config
-CUSTOM_VERSION={cat "tagSpec.yml" | grep -o 'version:[^:]*' | cut -f2 -d":"}
+CUSTOM_VERSION=${CUSTOM_TAG}
 INITIAL_VERSION='v1.0.0'
 
 echo "*** CONFIGURATION ***"
@@ -52,7 +52,7 @@ else
             else
                 CURRENT_PATCH=$((CURRENT_PATCH+1))
                 NEW_TAG="$CURRENT_MAJOR.$CURRENT_MINOR.$CURRENT_PATCH"
-                NEW_TAG="v$tag"
+                NEW_TAG="v$NEW_TAG"
             fi
         fi
     fi
