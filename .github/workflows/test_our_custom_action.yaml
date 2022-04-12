@@ -1,4 +1,6 @@
-name: Bump version
+# This workflow will create new Tags (major/minor - updated from users; default - patch)
+# Send Event as Post Request to config-sync-store-service@scheduleAPI
+name: Tag Creation & sending events
 on:
   push:
     branches:
@@ -7,11 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-        with:
-          fetch-depth: '0'
       - uses: actions/checkout@v1
+      - name: Read pubspec.yml to get Tag version type
+        id: custom-tag
+        run: |
+          TAG=`cat pubspec.yml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
+          echo "::set-output name=tag::$(echo $TAG)"
+        shell: bash
       - name: Bump version and push tag
+        id: tag_version
         uses: sharechat/tag-update-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.custom-tag.outputs.tag }}
