@@ -101,8 +101,10 @@ EOF
 
 git_ref_posted=$( echo "${git_refs_response}" | jq .ref | tr -d '"' )
 
+
 echo "::debug::${git_refs_response}"
 if [ "${git_ref_posted}" = "refs/tags/${NEW_TAG}" ]; then
+  echo ::set-output name=tag::$NEW_TAG
   exit 0
 else
   echo "::error::Tag was not created properly."
