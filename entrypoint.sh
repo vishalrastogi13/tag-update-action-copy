@@ -4,6 +4,7 @@ set -o pipefail
 
 # config
 CUSTOM_VERSION=${custom_tag}
+REPOSITORY=${repository}
 initial_version='v1.0.0'
 
 echo "*** CONFIGURATION ***"
@@ -78,12 +79,13 @@ git tag $NEW_TAG
 
 # push new tag ref to github
 dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
-full_name=$GITHUB_REPOSITORY
-git_refs_url=$(jq .repository.git_refs_url $GITHUB_EVENT_PATH | tr -d '"' | sed 's/{\/sha}//g')
+full_name=$REPOSITORY
+# git_refs_url=$(jq .repository.git_refs_url $GITHUB_EVENT_PATH | tr -d '"' | sed 's/{\/sha}//g')
+
+git_refs_url='https://api.github.com/repos/'$REPOSITORY'/git/refs'
 
 echo "$dt: **pushing tag $NEW_TAG to repo $full_name"
 echo "git ref url :: $git_refs_url"
-echo "git jq repo :: $(jq .repository.git_refs_url $GITHUB_EVENT_PATH)"
 
 git_refs_response=$(
 curl -s -X POST $git_refs_url \
